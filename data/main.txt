@@ -1,0 +1,22 @@
+#include "TApplication.h"
+#include "TCanvas.h"
+#include "TH1.h"
+#include "TRootCanvas.h"
+
+int main(int argc, char **argv)
+{
+    TApplication app("app", &argc, argv);
+
+    TCanvas *canvas = new TCanvas("c", "c");
+    TH1D *hist = new TH1D("hist", "hist", 100, 0, 10);
+    hist->Fill(5);
+    hist->Draw();
+    canvas->Update();
+
+    TRootCanvas *rc = static_cast<TRootCanvas *>(canvas->GetCanvasImp());
+    rc->Connect("CloseWindow()", "TApplication", gApplication, "Terminate()");
+
+    app.Run();
+
+    return 0;
+}

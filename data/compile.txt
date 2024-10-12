@@ -1,0 +1,12 @@
+rm analisi
+cmake ..
+make -j 10
+
+if [ -f "compile_commands.json" ]; then
+    cp compile_commands.json ../
+fi
+
+if [ -f "analisi" ]; then
+    ./analisi
+    clear
+fi
